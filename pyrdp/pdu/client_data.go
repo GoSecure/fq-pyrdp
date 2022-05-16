@@ -62,12 +62,12 @@ func ParseClientData(d *decode.D, length int64) {
 			ParseClientDataCore(d, data_len)
 		case CLIENT_SECURITY:
 			ParseClientDataSecurity(d, data_len)
-		// case CLIENT_NETWORK:
-		// 	ParseClientDataNetwork(d, data_len)
-		// case CLIENT_CLUSTER:
-		// 	ParseClientDataCluster(d, data_len)
+		case CLIENT_NETWORK:
+			ParseClientDataNetwork(d, data_len)
+		case CLIENT_CLUSTER:
+			ParseClientDataCluster(d, data_len)
 		default:
-			// Assert() once all functions are implemented.
+			// Assert() once all functions are implemented and tested.
 			d.FieldRawLen("data", data_len*8)
 			return
 		}
