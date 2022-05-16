@@ -48,14 +48,15 @@ var fastPathInputEventLengthsMap = map[int]int{
 
 func ParseFastPathInput(d *decode.D, length int64) {
 	d.FieldStruct("fastpath_input", func(d *decode.D) {
-		var (
-			events uint8 = 1
-		)
+		// var (
+		// 	events uint8 = 1
+		// )
 		pos := d.Pos()
 
 		d.FieldStruct("input_header", func(d *decode.D) {
 			d.FieldU2("action", scalar.Hex)
-			events = uint8(d.FieldU4("events") & 0xf)
+			// events = uint8(d.FieldU4("events") & 0xf)
+			d.FieldU4("events", scalar.Hex)
 			flags := d.FieldU2("flags", scalar.Hex)
 			if flags&FASTPATH_INPUT_ENCRYPTED != 0 {
 				panic("Encrypted fast-path not implemented.")
