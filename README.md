@@ -51,7 +51,7 @@ $ ./fq -d pyrdp '.events[]' /the/path/to/replay.pyrdp
 
 More complex information can be extracted depending on the PDUs that the pyrdp format can parse. For example, we can get the password used by the user that connected to the RDP service:
 
-```json
+```bash
 $ ./fq -d pyrdp '.events[1].client_info|{password:.password,username:.username}' /the/path/to/replay.pyrdp
 {
   "password": "admin",
