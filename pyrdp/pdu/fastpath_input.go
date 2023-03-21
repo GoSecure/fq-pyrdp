@@ -19,7 +19,7 @@ const (
 	FASTPATH_INPUT_EVENT_QOE_TIMESTAMP = 6
 )
 
-var eventCodesMap = scalar.UToScalar{
+var eventCodesMap = scalar.UintMap{
 	FASTPATH_INPUT_EVENT_SCANCODE:      {Sym: "fastpath_input_event_scancode", Description: ""},
 	FASTPATH_INPUT_EVENT_MOUSE:         {Sym: "fastpath_input_event_mouse", Description: ""},
 	FASTPATH_INPUT_EVENT_MOUSEX:        {Sym: "fastpath_input_event_mousex", Description: ""},
@@ -54,18 +54,18 @@ func ParseFastPathInput(d *decode.D, length int64) {
 		pos := d.Pos()
 
 		d.FieldStruct("input_header", func(d *decode.D) {
-			d.FieldU2("action", scalar.Hex)
+			d.FieldU2("action", scalar.UintHex)
 			// events = uint8(d.FieldU4("events") & 0xf)
-			d.FieldU4("events", scalar.Hex)
-			flags := d.FieldU2("flags", scalar.Hex)
+			d.FieldU4("events", scalar.UintHex)
+			flags := d.FieldU2("flags", scalar.UintHex)
 			if flags&FASTPATH_INPUT_ENCRYPTED != 0 {
 				panic("Encrypted fast-path not implemented.")
 			}
 		})
 
-		input_length := d.FieldU8("input_length1", scalar.Hex)
+		input_length := d.FieldU8("input_length1", scalar.UintHex)
 		if input_length&0x80 != 0 {
-			input_length = ((input_length & 0x7f) << 8) | d.FieldU8("input_length2", scalar.Hex)
+			input_length = ((input_length & 0x7f) << 8) | d.FieldU8("input_length2", scalar.UintHex)
 		}
 
 		// d.FieldU64("data_signature", scalar.Hex)
@@ -102,13 +102,13 @@ func parseFastpathInputEventScancode(d *decode.D) {
 
 func parseFastpathInputEventMouse(d *decode.D) {
 	// https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-rdpbcgr/16a96ded-b3d3-4468-b993-9c7a51297510
-	d.FieldU16("pointer_flags", scalar.Hex)
+	d.FieldU16("pointer_flags", scalar.UintHex)
 	d.FieldU16("x")
 	d.FieldU16("y")
 }
 func parseFastpathInputEventMousex(d *decode.D) {
 	// https: //docs.microsoft.com/en-us/openspecs/windows_protocols/ms-rdpbcgr/2ef7632f-2f2a-4de7-ab58-2585cedcdf48
-	d.FieldU16("pointer_flags", scalar.Hex)
+	d.FieldU16("pointer_flags", scalar.UintHex)
 	d.FieldU16("x")
 	d.FieldU16("y")
 }
@@ -119,6 +119,6 @@ func parseFastpathInputEventSync(d *decode.D) {
 }
 func parseFastpathInputEventUnicode(d *decode.D) {
 	// https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-rdpbcgr/e7b13e98-d800-42bb-9a1d-6948537d2317
-	d.FieldU16("unicode_code", scalar.Hex)
+	d.FieldU16("unicode_code", scalar.UintHex)
 }
 func parseFastpathInputEventQoeTimestamp(d *decode.D) {}

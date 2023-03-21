@@ -24,8 +24,8 @@ func printPos(d *decode.D) {
 	fmt.Fprintf(os.Stderr, "Pos: %d\n", d.Pos())
 }
 
-var charMapper = scalar.Fn(func(s scalar.S) (scalar.S, error) {
-	char := s.Actual.(uint64)
+var charMapper = scalar.UintFn(func(s scalar.Uint) (scalar.Uint, error) {
+	char := s.Actual
 	s.Sym = fmt.Sprintf("%c", int(char))
 	return s, nil
 })

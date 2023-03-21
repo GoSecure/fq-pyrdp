@@ -21,7 +21,7 @@ const (
 	RDP10_10 = 0x8000f
 )
 
-var RDPVersionMap = scalar.UToScalar{
+var RDPVersionMap = scalar.UintMap{
 	RDP4:     {Sym: "rdp4", Description: "RDP 4"},
 	RDP5:     {Sym: "rdp5", Description: "RDP 5"},
 	RDP10:    {Sym: "rdp10", Description: "RDP 10"},
@@ -45,7 +45,7 @@ const (
 )
 
 // TODO: Fill descriptions.
-var clientDataMap = scalar.UToScalar{
+var clientDataMap = scalar.UintMap{
 	CLIENT_CORE:     {Sym: "client_core", Description: ""},
 	CLIENT_SECURITY: {Sym: "client_security", Description: ""},
 	CLIENT_NETWORK:  {Sym: "client_network", Description: ""},

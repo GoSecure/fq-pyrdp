@@ -27,7 +27,7 @@ const (
 )
 
 // TODO: Fill the descriptions.
-var cbTypesMap = scalar.UToScalar{
+var cbTypesMap = scalar.UintMap{
 	CB_MONITOR_READY:         {Sym: "cb_monitor_ready", Description: ""},
 	CB_FORMAT_LIST:           {Sym: "cb_format_list", Description: ""},
 	CB_FORMAT_LIST_RESPONSE:  {Sym: "cb_format_list_response", Description: ""},
@@ -41,7 +41,7 @@ var cbTypesMap = scalar.UToScalar{
 	CB_UNLOCK_CLIPDATA:       {Sym: "cb_unlock_clipdata", Description: ""},
 }
 
-var cbFlagsMap = scalar.UToScalar{
+var cbFlagsMap = scalar.UintMap{
 	NONE:             {Sym: "none", Description: ""},
 	CB_RESPONSE_OK:   {Sym: "cb_response_ok", Description: ""},
 	CB_RESPONSE_FAIL: {Sym: "cb_response_fail", Description: ""},

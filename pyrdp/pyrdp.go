@@ -5,8 +5,8 @@ import (
 
 	"github.com/wader/fq/format"
 	pyrdp "github.com/wader/fq/format/pyrdp/pdu"
-	"github.com/wader/fq/format/registry"
 	"github.com/wader/fq/pkg/decode"
+	"github.com/wader/fq/pkg/interp"
 	"github.com/wader/fq/pkg/scalar"
 )
 
@@ -37,7 +37,7 @@ const (
 )
 
 // TODO: Fill all descriptions.
-var pduTypesMap = scalar.UToScalar{
+var pduTypesMap = scalar.UintMap{
 	PDU_FAST_PATH_INPUT:            {Sym: "pdu_fastpath_input", Description: ""},
 	PDU_FAST_PATH_OUTPUT:           {Sym: "pdu_fastpath_output", Description: ""},
 	PDU_CLIENT_INFO:                {Sym: "pdu_client_info", Description: ""},
@@ -84,14 +84,14 @@ var pduParsersMap = map[uint16]interface{}{
 }
 
 func init() {
-	registry.MustRegister(decode.Format{
+	interp.RegisterFormat(decode.Format{
 		Name:        format.PYRDP,
 		Description: "Binary PyRDP",
 		DecodeFn:    decodePYRDP,
 	})
 }
 
-func decodePYRDP(d *decode.D, in interface{}) interface{} {
+func decodePYRDP(d *decode.D) any {
 	d.Endian = decode.LittleEndian
 
 	d.FieldArray("events", func(d *decode.D) {
@@ -129,7 +129,7 @@ func noParse(d *decode.D, length int64) {
 	return
 }
 
-var timestampMapper = scalar.Fn(func(s scalar.S) (scalar.S, error) {
-	s.Sym = time.UnixMilli(int64(s.Actual.(uint64))).UTC().String()
+var timestampMapper = scalar.UintFn(func(s scalar.Uint) (scalar.Uint, error) {
+	s.Sym = time.UnixMilli(int64(s.Actual)).UTC().String()
 	return s, nil
 })

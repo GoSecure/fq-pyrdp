@@ -44,7 +44,7 @@ func ParseClientInfo(d *decode.D, length int64) {
 		extra_length := length - ((d.Pos() - pos) / 8)
 		if extra_length > 0 {
 			d.FieldStruct("extra_info", func(d *decode.D) {
-				d.FieldU16("address_family", scalar.Hex)
+				d.FieldU16("address_family", scalar.UintHex)
 				address_length := int(d.FieldU16("address_length"))
 				d.FieldStrFn("address", toTextUTF16Fn(address_length))
 				dir_length := int(d.FieldU16("dir_length"))
