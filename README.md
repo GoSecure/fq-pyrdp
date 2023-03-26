@@ -41,6 +41,16 @@ $ ln -s /the/path/to/fq-pyrdp/pyrdp pyrdp
 
 To build fq with the new format added just go to the root of the fq repository and use `make fq`. That should create an fq binary in the same directory with the new PyRDP replay format added.
 
+### Development
+
+To enable this repository to resolve the `fq` code and reduce warnings, the configuration of a Go workspace is recommended.
+To do so, at the root of this repository, type:
+
+```bash
+go work init
+go work use ./path-to-fq
+```
+
 ## fq usage
 
 To parse the replay files using fq you will need to specify the format using `-d` and a query, just as you will do with jq:
