@@ -84,11 +84,12 @@ var pduParsersMap = map[uint16]interface{}{
 }
 
 func init() {
-	interp.RegisterFormat(decode.Format{
-		Name:        format.PYRDP,
-		Description: "Binary PyRDP",
-		DecodeFn:    decodePYRDP,
-	})
+	interp.RegisterFormat(
+		format.PYRDP,
+		&decode.Format{
+			Description: "PyRDP Replay Files",
+			DecodeFn:    decodePYRDP,
+		})
 }
 
 func decodePYRDP(d *decode.D) any {
