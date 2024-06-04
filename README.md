@@ -51,6 +51,19 @@ go work init
 go work use ./path-to-fq
 ```
 
+### Run tests
+
+In the  `fq` repository, run:
+
+```bash
+go test ./format -run TestFormats/pyrdp
+```
+
+Testing won't work with `format/pyrdp` as a symbolic link to this repo so you will need to copy the files to test.
+
+Ref: https://github.com/wader/fq/blob/b0025b64c94aa443e310647a4148c4c8015d7d1c/doc/dev.md#checklist
+
+
 ## fq usage
 
 To parse the replay files using fq you will need to specify the format using `-d` and a query, just as you will do with jq:
